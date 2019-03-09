@@ -145,7 +145,7 @@ export const setupCubeScene = (scene: Scene, keys: Keys): (() => void) => {
 
     if (cube.direction) {
       let reset = false;
-      let step = 1;
+      let step = 5;
 
       cube.rotation += step;
       if (cube.rotation > 90) {

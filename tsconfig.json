@@ -1,15 +1,19 @@
 {
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules/*", "src/**/*.spec.ts"],
   "compilerOptions": {
-    "target": "es5",
-    "module": "esnext",
-    "lib": ["esnext", "dom"],
-    "strict": true,
-    "types": ["babylonjs", "babylonjs-gui"],
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "lib": ["esnext", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
     "noUnusedLocals": true,
-    "noEmit": true
-  }
+    "sourceMap": true,
+    "strict": true,
+    "strictFunctionTypes": false,
+    "target": "es6",
+    "types": ["babylonjs", "babylonjs-gui", "electron"]
+  },
+  "exclude": ["node_modules/*", "src/**/*.spec.ts"],
+  "include": ["src/**/*.ts"]
 }

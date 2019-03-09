@@ -10,6 +10,7 @@ import { setupCubeScene } from './setupCubeScene';
 const debug = logger('screen');
 
 const getRenderCanvas = (): HTMLCanvasElement => {
+  console.assert(renderCanvas);
   const maybeCanvas = document.getElementById('renderCanvas');
   if (maybeCanvas instanceof HTMLCanvasElement) {
     return maybeCanvas;
@@ -30,9 +31,11 @@ export const setupScreen = () => {
   const engine = new Engine(canvas, true); // Generate the BABYLON 3D engine
   const scene = new Scene(engine);
 
-  // const gravityVector = new Vector3(0, -9.81, 0);
-  // const physicsPlugin = new CannonJSPlugin();
-  // scene.enablePhysics(gravityVector, physicsPlugin);
+  if (false) {
+    const gravityVector = new Vector3(0, -9.81, 0);
+    const physicsPlugin = new CannonJSPlugin();
+    scene.enablePhysics(gravityVector, physicsPlugin);
+  }
 
   const updateScene = setupCubeScene(scene, keys);
   createGUI(scene, keys, engine);
