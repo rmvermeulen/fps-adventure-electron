@@ -1,20 +1,16 @@
-import { Engine, Scene } from 'babylonjs';
 import { AdvancedDynamicTexture, Button, Control } from 'babylonjs-gui';
 
 import { logger } from './logger';
+import { MyScene } from './MyScene';
 
 const debug = logger('gui');
-export const createGUI = (
-  scene: Scene,
-  keys: Combokeys.Combokeys,
-  engine: Engine,
-) => {
+export const createGUI = (scene: MyScene) => {
   const advancedTexture = AdvancedDynamicTexture.CreateFullscreenUI(
     'UI',
     true,
     scene,
   );
-  const button = Button.CreateSimpleButton('but', 'Some button');
+  const button = Button.CreateSimpleButton('but', 'Toggle camera');
   button.width = 0.2;
   button.height = '40px';
   button.color = 'white';
@@ -24,6 +20,9 @@ export const createGUI = (
 
   button.onPointerUpObservable.add(() => {
     debug('click');
-    engine.stopRenderLoop();
+    const { toggleCameraControl } = window;
+    if (toggleCameraControl) {
+      toggleCameraControl();
+    }
   });
 };

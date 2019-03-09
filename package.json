@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "babylonjs": "^4.0.0-alpha.22",
-    "babylonjs-gui": "^3.3.0",
+    "babylonjs-gui": "^4.0.0-alpha.32",
     "cannon": "^0.6.2",
     "combokeys": "^3.0.0",
     "lodash": "^4.17.11",

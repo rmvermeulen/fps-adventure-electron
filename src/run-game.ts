@@ -1,5 +1,3 @@
-import { setupScreen } from './setupScreen';
+import { setupEngine } from './setupEngine';
 
-setupScreen();
-
-console.log(window.webContents);
+setupEngine();
