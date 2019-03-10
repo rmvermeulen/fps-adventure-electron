@@ -1,8 +1,10 @@
-import { Engine } from 'babylonjs';
 import CANNON from 'cannon';
 import Combokeys from 'combokeys';
 
+import { GameEngine } from './GameEngine';
 import { GameScene } from './GameScene';
+import { container } from './inversify.config';
+import { Combos } from './KeyTracker';
 import { logger } from './logger';
 import { setupCamera } from './setupCamera';
 
@@ -24,11 +26,21 @@ const getRenderCanvas = (): HTMLCanvasElement => {
 export const setupEngine = () => {
   debug('setup');
 
-  const canvas = getRenderCanvas();
-  const engine = new Engine(canvas, true);
+  container.bind('canvas').toConstantValue(getRenderCanvas());
 
-  const combos = new Combokeys(canvas);
-  const scene = new GameScene({ engine, combos });
+  const canvas = container.get<HTMLCanvasElement>('canvas');
+  debug(canvas);
+
+  container.bind('combos').toConstantValue(new Combokeys(canvas));
+
+  const keys = container.get<Combos>('combos');
+  debug(keys);
+
+  const engine = container.get(GameEngine);
+  debug(engine);
+
+  const scene = container.get(GameScene);
+  debug(scene);
 
   // const gravity = new Vector3(0, -9.81, 0);
   // const physicsPlugin = new CannonJSPlugin();
@@ -36,6 +48,8 @@ export const setupEngine = () => {
   // scene.enablePhysics(gravity, physicsPlugin as any);
 
   setupCamera(scene, canvas);
+
+  // const engine = container.get(GameEngine);
 
   engine.runRenderLoop(() => {
     scene.render();
@@ -47,5 +61,5 @@ export const setupEngine = () => {
     engine.resize();
   });
 
-  return { canvas, keys: combos };
+  return { canvas };
 };

@@ -1,29 +1,25 @@
 import {
   DirectionalLight,
-  Engine,
-  Material,
   MeshBuilder,
   Scene,
   StandardMaterial,
   Texture,
   Vector3,
 } from 'babylonjs';
+import { injectable } from 'inversify';
 
+import { AssetMap } from './asset-map';
 import { createGUI } from './createGUI';
-import { Combos } from './KeyTracker';
+import { GameEngine } from './GameEngine';
 import { Skybox } from './Skybox';
 
-export interface MySceneOptions {
-  engine: Engine;
-  combos: Combos;
-}
-
+@injectable()
 export class GameScene extends Scene {
-  public combos: Combos;
+  // @inject('combos') public combos!: Combos;
   public skybox: Skybox;
-  constructor({ engine, combos }: MySceneOptions) {
+
+  constructor(engine: GameEngine, assetMap: AssetMap) {
     super(engine);
-    this.combos = combos;
 
     this.skybox = new Skybox(this, 'sky');
 
@@ -36,7 +32,7 @@ export class GameScene extends Scene {
       this,
     );
     const mat = new StandardMaterial('blocks', this);
-    mat.diffuseTexture = new Texture('assets/block.png', this);
+    mat.diffuseTexture = new Texture(assetMap.crate! as string, this);
     floor.material = mat;
 
     // tslint:disable-next-line: no-unused-expression
