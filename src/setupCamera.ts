@@ -1,7 +1,7 @@
 import { ArcRotateCamera, Vector3 } from 'babylonjs';
 
+import { GameScene } from './GameScene';
 import { logger } from './logger';
-import { MyScene } from './MyScene';
 
 const debug = logger('camera');
 
@@ -12,7 +12,11 @@ declare global {
   }
 }
 
-export const setupCamera = (scene: MyScene, canvas: HTMLCanvasElement) => {
+export const setupCamera = (
+  scene: GameScene,
+  canvas: HTMLCanvasElement,
+  enableControl = true,
+) => {
   const camera = new ArcRotateCamera(
     'Camera',
     Math.PI / 2,
@@ -35,5 +39,9 @@ export const setupCamera = (scene: MyScene, canvas: HTMLCanvasElement) => {
     toggleCameraControl,
     cameraHasControl: false,
   });
+  if (enableControl) {
+    toggleCameraControl();
+  }
+  debug('camera control enabled = %s', window.cameraHasControl);
   return camera;
 };

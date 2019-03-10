@@ -6,9 +6,9 @@ import {
   Vector3,
 } from 'babylonjs';
 
+import { GameScene } from './GameScene';
 import { KeyTracker } from './KeyTracker';
 import { logger } from './logger';
-import { MyScene } from './MyScene';
 
 const debug = logger('player');
 
@@ -48,7 +48,7 @@ export class Player {
   private _lastPosition?: Vector3;
   private isFrozen = false;
 
-  constructor(private scene: MyScene, private diameter: number) {
+  constructor(private scene: GameScene, private diameter: number) {
     this._mesh.checkCollisions = true;
     this._mesh.physicsImpostor = new PhysicsImpostor(
       this._mesh,
