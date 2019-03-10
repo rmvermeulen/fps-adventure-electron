@@ -31,11 +31,9 @@ export class Skybox {
     }
     this._name = name;
     const mat = new StandardMaterial('skybox' + name, this.scene);
-    if (name === 'sky') {
-      mat.reflectionTexture = new CubeTexture('assets/skybox', this.scene);
-    } else {
-      mat.reflectionTexture = new CubeTexture('assets/stormydays', this.scene);
-    }
+
+    const texturePath = 'assets/' + (name === 'sky') ? 'skybox' : 'stormydays';
+    mat.reflectionTexture = new CubeTexture(texturePath, this.scene);
 
     // only the inside matters for a skybox
     mat.sideOrientation = 0;
