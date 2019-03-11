@@ -5,13 +5,15 @@ import {
   PointLight,
   Vector3,
 } from 'babylonjs';
+import { inject, injectable } from 'inversify';
 
 import { GameScene } from './GameScene';
-import { KeyTracker } from './KeyTracker';
+import { Combos, KeyTracker } from './KeyTracker';
 import { logger } from './logger';
 
 const debug = logger('player');
 
+@injectable()
 export class Player {
   public get isColliding() {
     return this._isColliding;
@@ -48,6 +50,8 @@ export class Player {
   private _lastPosition?: Vector3;
   private isFrozen = false;
 
+  @inject('combos') private combos!: Combos;
+
   constructor(private scene: GameScene, private diameter: number) {
     this._mesh.checkCollisions = true;
     this._mesh.physicsImpostor = new PhysicsImpostor(
@@ -58,7 +62,7 @@ export class Player {
       },
     );
 
-    const trackKey = KeyTracker.factory(scene.combos);
+    const trackKey = KeyTracker.factory(this.combos);
     this.trackers = {
       up: trackKey('up'),
       left: trackKey('left'),
