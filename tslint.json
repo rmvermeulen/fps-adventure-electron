@@ -19,6 +19,7 @@
       "ban-keywords",
       "check-format",
       "allow-leading-underscore"
-    ]
+    ],
+    "no-angle-bracket-type-assertion": false
   }
 }

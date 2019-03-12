@@ -9,7 +9,7 @@
     "dev:electron": "run-p dev:bundler watch:electron",
     "watch:electron": "nodemon -w src/run-electron.ts --exec 'yarn run:electron'",
     "run:electron": "electron -r ts-node/register .",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "tslint -p tsconfig.lint.json",
     "check-build": "tsc -p tsconfig.json --pretty --noEmit"
   },
   "license": "MIT",
