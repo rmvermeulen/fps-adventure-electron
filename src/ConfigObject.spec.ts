@@ -17,16 +17,23 @@ describe('ConfigObject', () => {
       config = createInstance();
     });
 
-    it('can use paths to get values', () => {
-      expect(config.get('nested.value')).toBeDefined();
-      expect(config.get('nested.value')).toEqual((config as any).nested.value);
-    });
+    it.each(['nested.value', ['nested', 'value']])(
+      'can use paths to get values',
+      (prop) => {
+        expect(config.get(prop)).toBeDefined();
+        expect(config.get(prop)).toEqual((config as any).nested.value);
+      },
+    );
 
-    it('has a sync callback api', () => {
+    it.each`
+      badProp           | goodProp
+      ${'foo.bar'}      | ${'nested.value'}
+      ${['foo', 'bar']} | ${['nested', 'value']}
+    `('has a sync callback api', ({ badProp, goodProp }) => {
       const cb = jest.fn();
-      config.get('foo.bar', cb);
+      config.get(badProp, cb);
       expect(cb).not.toHaveBeenCalled();
-      config.get('nested.value', cb);
+      config.get(goodProp, cb);
       expect(cb).toHaveBeenCalledWith('this is a value');
     });
 
