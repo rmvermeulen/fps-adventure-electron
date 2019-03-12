@@ -55,11 +55,5 @@ export const setupEngine = () => {
     scene.render();
   });
 
-  // Watch for browser/canvas resize events
-  window.addEventListener('resize', () => {
-    debug('resizing');
-    engine.resize();
-  });
-
   return { canvas };
 };

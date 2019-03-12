@@ -25,6 +25,7 @@ export const setupCamera = (
     new Vector3(0, 0, 0),
     scene,
   );
+  camera.position.y = 10;
   const toggleCameraControl = () => {
     if (window.cameraHasControl) {
       debug('detach camera control');

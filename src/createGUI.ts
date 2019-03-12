@@ -63,7 +63,8 @@ export const createGUI = (scene: GameScene) => {
     },
     'Change skybox'() {
       debug('changing skybox');
-      scene.skybox.setMaterial(scene.skybox.name === 'sky' ? 'storm' : 'sky');
+      const { skybox } = scene;
+      skybox.setMaterial(skybox.getName() === 'sky' ? 'storm' : 'sky');
     },
     Reload() {
       debug('reload');

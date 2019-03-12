@@ -1,22 +1,31 @@
-import { Container } from 'inversify';
+import { Container, interfaces } from 'inversify';
 
-import { assetMap, AssetMap } from './asset-map';
+import { AssetMap } from './AssetMap';
 import { GameEngine } from './GameEngine';
 import { GameScene } from './GameScene';
+import { logger } from './logger';
+import { Skybox } from './Skybox';
+import { factoryId } from './util';
+
+// tslint:disable max-classes-per-file
+
+// @ts-ignore
+const debug = logger('inversify-config');
 
 const container = new Container({
   skipBaseClassChecks: true,
 });
 
-container.bind(AssetMap).toConstantValue(assetMap);
-
-const addSingleton = (newable: NewableFunction) =>
+const addSingleton = <T>(newable: interfaces.Newable<T>) =>
   container
-    .bind(newable)
+    .bind<T>(newable)
     .toSelf()
     .inSingletonScope();
 
+addSingleton(AssetMap);
 addSingleton(GameScene);
 addSingleton(GameEngine);
+
+container.bind(factoryId(Skybox)).toFactory(Skybox.factory);
 
 export { container };

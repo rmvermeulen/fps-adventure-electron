@@ -8,20 +8,30 @@ import {
 } from 'babylonjs';
 import { injectable } from 'inversify';
 
-import { AssetMap } from './asset-map';
+import { AssetMap } from './AssetMap';
 import { createGUI } from './createGUI';
 import { GameEngine } from './GameEngine';
-import { Skybox } from './Skybox';
+import { logger } from './logger';
+import { Skybox, SkyboxFactory } from './Skybox';
+import { factory } from './util';
+
+const debug = logger('scene');
 
 @injectable()
 export class GameScene extends Scene {
   // @inject('combos') public combos!: Combos;
-  public skybox: Skybox;
 
-  constructor(engine: GameEngine, assetMap: AssetMap) {
+  public skybox!: Skybox;
+
+  constructor(
+    engine: GameEngine,
+    private assets: AssetMap,
+    @factory(Skybox)
+    createSkybox: SkyboxFactory,
+  ) {
     super(engine);
-
-    this.skybox = new Skybox(this, 'sky');
+    this.skybox = createSkybox('sky', this);
+    debug('skybox', this.skybox);
 
     const floor = MeshBuilder.CreateGround(
       'floor',
@@ -32,7 +42,7 @@ export class GameScene extends Scene {
       this,
     );
     const mat = new StandardMaterial('blocks', this);
-    mat.diffuseTexture = new Texture(assetMap.crate! as string, this);
+    mat.diffuseTexture = new Texture(this.assets.get<string>('crate'), this);
     floor.material = mat;
 
     // tslint:disable-next-line: no-unused-expression

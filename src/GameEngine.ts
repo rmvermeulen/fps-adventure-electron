@@ -9,6 +9,12 @@ const debug = logger('game-engine');
 export class GameEngine extends Engine {
   constructor(@inject('canvas') canvas: HTMLCanvasElement) {
     debug('creating game engine', canvas);
-    super(canvas, true);
+    super(canvas, true, {});
+
+    // Watch for browser/canvas resize events
+    window.addEventListener('resize', () => {
+      debug('resizing');
+      this.resize();
+    });
   }
 }
