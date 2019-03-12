@@ -30,11 +30,13 @@ describe('ConfigObject', () => {
       expect(cb).toHaveBeenCalledWith('this is a value');
     });
 
-    it('can assert and return', () => {
+    it('can skip asserting', () => {
       expect.assertions(2);
       expect(() => {
-        expect(config.get('foo')).toBeUndefined();
-        config.get('foo', true);
+        config.get('foo', false);
+      }).not.toThrow();
+      expect(() => {
+        config.get('foo');
       }).toThrow();
     });
   });
