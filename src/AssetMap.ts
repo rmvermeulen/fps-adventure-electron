@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 
-import { ConfigObject } from './ConfigObject.base';
+import { ConfigObject } from './ConfigObject';
 
 // import { IAssetMap } from './interfaces';
 

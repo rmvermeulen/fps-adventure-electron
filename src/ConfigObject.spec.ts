@@ -1,4 +1,4 @@
-import { ConfigObject } from './ConfigObject.base';
+import { ConfigObject } from './ConfigObject';
 describe('ConfigObject', () => {
   let createInstance: () => ConfigObject;
   it('is a base class', () => {
