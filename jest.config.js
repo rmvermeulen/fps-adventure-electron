@@ -4,7 +4,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   verbose: true,
   collectCoverage: true,
-  coveragePathIgnorePatterns: ['setupJest'],
+  coveragePathIgnorePatterns: ['setupJest', 'reflect-metadata'],
   globals: {
     'ts-jest': {
       diagnostics: {

@@ -6,7 +6,7 @@ import {
   Texture,
   Vector3,
 } from 'babylonjs';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 
 import { AssetMap } from './AssetMap';
 import { createGUI } from './createGUI';
@@ -28,12 +28,13 @@ export class GameScene extends Scene {
     private assets: AssetMap,
     @factory(Skybox)
     createSkybox: SkyboxFactory,
+    @inject(MeshBuilder) builder: typeof MeshBuilder,
   ) {
     super(engine);
     this.skybox = createSkybox('sky', this);
     debug('skybox', this.skybox);
 
-    const floor = MeshBuilder.CreateGround(
+    const floor = builder.CreateGround(
       'floor',
       {
         width: 10,

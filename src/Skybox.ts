@@ -63,7 +63,7 @@ export class Skybox {
 
     // only the inside matters for a skybox
     mat.sideOrientation = 0;
-    mat.backFaceCulling = false;
+    mat.backFaceCulling = true;
     mat.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
     this.mesh.material = mat;
   }

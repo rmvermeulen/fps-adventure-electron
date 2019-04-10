@@ -1,4 +1,5 @@
-import { Container, interfaces } from 'inversify';
+import { MeshBuilder } from 'babylonjs';
+import { Container, decorate, injectable, interfaces } from 'inversify';
 
 import { AssetMap } from './AssetMap';
 import { GameEngine } from './GameEngine';
@@ -25,6 +26,9 @@ const addSingleton = <T>(newable: interfaces.Newable<T>) =>
 addSingleton(AssetMap);
 addSingleton(GameScene);
 addSingleton(GameEngine);
+
+decorate(injectable(), MeshBuilder);
+container.bind(MeshBuilder).toConstantValue(MeshBuilder);
 
 container.bind(factoryId(Skybox)).toFactory(Skybox.factory);
 
